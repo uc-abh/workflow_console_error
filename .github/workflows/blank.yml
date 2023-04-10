@@ -1,0 +1,5 @@
+- name: Upload error log
+  uses: actions/upload-artifact@v2
+  with:
+    name: error-log
+    path: error.log
