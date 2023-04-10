@@ -1,5 +1,35 @@
-- name: Upload error log
-  uses: actions/upload-artifact@v2
-  with:
-    name: error-log
-    path: error.log
+name: Check for Console Errors
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-errors:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y npm
+          npm install -g eslint htmlhint
+
+      - name: Check PHP code
+        run: vendor/bin/phpcs --standard=PSR12 index.php
+
+      - name: Check JavaScript code
+        run: eslint index.js
+
+      - name: Check HTML code
+        run: htmlhint index.html
