@@ -129,5 +129,4 @@
     <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
         <type>error</type>
     </rule>
-	<rule ref="Generic.Commenting.Todo"/>
 </ruleset>

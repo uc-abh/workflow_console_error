@@ -29,11 +29,11 @@ class PropertyDeclarationSniff extends AbstractVariableSniff
     {
         $tokens = $phpcsFile->getTokens();
 
-        // if ($tokens[$stackPtr]['content'][1] === '_') {
-        //     $error = 'Property name "%s" should not be prefixed with an underscore to indicate visibility';
-        //     $data  = [$tokens[$stackPtr]['content']];
-        //     $phpcsFile->addWarning($error, $stackPtr, 'Underscore', $data);
-        // }
+        if ($tokens[$stackPtr]['content'][1] === '_') {
+            $error = 'Property name "%s" should not be prefixed with an underscore to indicate visibility';
+            $data  = [$tokens[$stackPtr]['content']];
+            $phpcsFile->addWarning($error, $stackPtr, 'Underscore', $data);
+        }
 
         // Detect multiple properties defined at the same time. Throw an error
         // for this, but also only process the first property in the list so we don't
@@ -41,6 +41,7 @@ class PropertyDeclarationSniff extends AbstractVariableSniff
         $find   = Tokens::$scopeModifiers;
         $find[] = T_VARIABLE;
         $find[] = T_VAR;
+        $find[] = T_READONLY;
         $find[] = T_SEMICOLON;
         $find[] = T_OPEN_CURLY_BRACKET;
 

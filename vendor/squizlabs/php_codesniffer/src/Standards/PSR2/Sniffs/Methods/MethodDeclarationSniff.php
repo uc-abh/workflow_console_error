@@ -54,11 +54,11 @@ class MethodDeclarationSniff extends AbstractScopeSniff
             return;
         }
 
-        // if ($methodName[0] === '_' && isset($methodName[1]) === true && $methodName[1] !== '_') {
-        //     $error = 'Method name "%s" should not be prefixed with an underscore to indicate visibility';
-        //     $data  = [$methodName];
-        //     $phpcsFile->addWarning($error, $stackPtr, 'Underscore', $data);
-        // }
+        if ($methodName[0] === '_' && isset($methodName[1]) === true && $methodName[1] !== '_') {
+            $error = 'Method name "%s" should not be prefixed with an underscore to indicate visibility';
+            $data  = [$methodName];
+            $phpcsFile->addWarning($error, $stackPtr, 'Underscore', $data);
+        }
 
         $visibility = 0;
         $static     = 0;
